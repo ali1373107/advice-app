@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 export default function App() {
     const [advice, setAdvice] = useState("");
@@ -9,13 +9,24 @@ export default function App() {
         const data = await res.json();
         setAdvice(data.slip.advice);
         setCount((c)=> c+1);
-    }    
+    }  
+    useEffect(()=>{
+        getAdvice()
+    },[]
+  
+)  
   return(
     <div>
         <h1>{advice}</h1>
         <button onClick={getAdvice}>Click Me</button>
-        <p>You Clicked <strong>{count}</strong>Times</p>
+        <Message count={count}/>
           </div>
 
   );
+}
+function Message(props){
+    return(
+        <p>You Clicked <strong>{props.count}</strong>Times</p>
+
+    )
 }
